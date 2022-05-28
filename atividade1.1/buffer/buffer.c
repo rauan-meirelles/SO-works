@@ -9,6 +9,10 @@
 #include <pthread.h>
 #include "../dijkstra.h"
 
+#define KEY 1234
+#define KEY2 4567
+#define KEY3 7891
+
 //
 // TODO: Definição dos semáforos (variaveis precisam ser globais)
 //
@@ -67,9 +71,9 @@ int main(int argc, char ** argv)
     // TODO: Criação dos semáforos (aqui é quando define seus
     // valores, usando a biblioteca dijkstra.h
     // 
-    mutex = sem_create(456, 1);
-    full = sem_create(456, 0);
-    empty = sem_create(456, N_BUFFER);
+    mutex = sem_create(KEY, 1);
+    full = sem_create(KEY2, 0);
+    empty = sem_create(KEY3, N_BUFFER);
     
     // gerando um buffer de N inteiros
     buffer = malloc(N_BUFFER * sizeof(int));

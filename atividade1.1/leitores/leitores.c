@@ -10,6 +10,7 @@
 #include "../dijkstra.h"
 
 #define KEY 1234
+#define KEY2 4567
 
 // quantidade de leitores lendo
 int readcount = 0;
@@ -17,8 +18,8 @@ int readcount = 0;
 //
 // TODO: Definição dos semáforos (variaveis precisam ser globais)
 //
-int marea;
-int mcount;
+int mutex;
+int wrt;
 // dado compartilhado que os leitores e escritores acessarão
 int shared = 0;
 
@@ -49,8 +50,8 @@ int main(int argc, char ** argv)
     // TODO: Criação dos semáforos (aqui é quando define seus
     // valores, usando a biblioteca dijkstra.h
     // 
-    marea = sem_create(KEY, 1);
-    mcount = sem_create(KEY, 1);
+    mutex = sem_create(KEY, 1);
+    wrt = sem_create(KEY2, 1);
 
  
     // num leitores
@@ -93,8 +94,8 @@ int main(int argc, char ** argv)
     // TODO: Excluindo os semaforos (dijkstra.h)
     // 
 
-    sem_delete(marea);
-    sem_delete(mcount);
+    sem_delete(mutex);
+    sem_delete(wrt);
     // liberando a memoria alocada
     free(tl);
     free(te);
@@ -112,12 +113,12 @@ void * leitor(void * id)
     //
     // TODO: precisa fazer o controle de acesso à entrada do leitor
     //
-    P(mcount);
+    P(mutex);
     readcount++;
     if(readcount == 1){
-        P(marea);
+        P(wrt);
     }
-    V(mcount);
+    V(mutex);
     
     printf("> Leitor %d tentando acesso\n",i);
 
@@ -128,12 +129,12 @@ void * leitor(void * id)
     //
     // TODO: precisa fazer a saída do leitor e liberação do acesso
     //
-    P(mcount);
+    P(mutex);
     readcount--;
     if(readcount == 0){
-        V(marea);
+        V(wrt);
     }
-    V(mcount);
+    V(mutex);
     printf("< Leitor %d liberando acesso\n",i);
 
 }
@@ -148,7 +149,7 @@ void * escritor(void * id)
     //
     // TODO: precisa controlar o acesso do escritor ao recurso
     //
-    P(marea);
+    P(wrt);
     printf("+ Escritor %d tentando acesso\n",i);
     
     printf("\t+ Escritor %d conseguiu acesso\n",i);
@@ -156,11 +157,10 @@ void * escritor(void * id)
     printf("\t+ Escritor %d gravando o valor %d em shared\n", i, rnd);
     usleep(gera_rand(1000000));
     shared = rnd;
-    printf("READCOUNT: %d", readcount);
     //
     // TODO: precisa fazer a saída do escritor e liberação do acesso
     //
-    V(marea);
+    V(wrt);
     printf("+ Escritor %d saindo\n",i);
 }
 
