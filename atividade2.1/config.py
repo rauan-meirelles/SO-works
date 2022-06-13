@@ -23,7 +23,28 @@ def rm_files():
     """
     Apagando o arquivo de resultado e escalonador
     """
-    os.system("cd escalonador_prio && rm resultado.txt && rm escalonador")
-    os.system("cd escalonador_fifo && rm resultado.txt && rm escalonador")
-    os.system("cd escalonador_rr && rm resultado.txt && rm escalonador")
-    os.system("cd escalonador_sjf && rm resultado.txt && rm escalonador")
+    os.system("cd escalonador_prio && rm resultado1.txt && rm escalonador")
+    os.system("cd escalonador_prio && rm resultado2.txt")
+    os.system("cd escalonador_prio && rm resultado3.txt")
+    os.system("cd escalonador_prio && rm resultado4.txt")
+    os.system("cd escalonador_prio && rm resultado5.txt")
+
+    os.system("cd escalonador_fifo && rm resultado1.txt && rm escalonador")
+    os.system("cd escalonador_fifo && rm resultado2.txt")
+    os.system("cd escalonador_fifo && rm resultado3.txt")
+    os.system("cd escalonador_fifo && rm resultado4.txt")
+    os.system("cd escalonador_fifo && rm resultado5.txt")
+
+
+    os.system("cd escalonador_rr && rm resultado1.txt && rm escalonador")
+    os.system("cd escalonador_rr && rm resultado2.txt")
+    os.system("cd escalonador_rr && rm resultado3.txt")
+    os.system("cd escalonador_rr && rm resultado4.txt")
+    os.system("cd escalonador_rr && rm resultado5.txt")
+
+
+    os.system("cd escalonador_sjf && rm resultado1.txt && rm escalonador")
+    os.system("cd escalonador_sjf && rm resultado2.txt")
+    os.system("cd escalonador_sjf && rm resultado3.txt")
+    os.system("cd escalonador_sjf && rm resultado4.txt")
+    os.system("cd escalonador_sjf && rm resultado5.txt")

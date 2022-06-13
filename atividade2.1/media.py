@@ -1,65 +1,55 @@
 #import matplotlib.pyplot as plt
 
-
-
-
 from config import run_config, rm_files
 run_config()
 
 
-soma_rr=0
-soma_prio=0
-soma_fifo=0
-soma_sjf=0
-count = 0
+def media_dos_tempos_medios(file:str)->int:
+    soma=0
+    with open(file, "r") as file:
+        for readline in file: 
+            line_strip = readline.strip()
+            soma += float(line_strip)
 
+    result = soma/10
+    return result
 """
 Média do Round Robin
 """
-with open("escalonador_rr/resultado.txt", "r") as file:
-	for readline in file: 
-		count+=1
-		line_strip = readline.strip()
-		soma_rr += float(line_strip)
+media_rr_50_p = media_dos_tempos_medios("escalonador_rr/resultado1.txt")
+media_rr_100_p = media_dos_tempos_medios("escalonador_rr/resultado2.txt")
+media_rr_150_p = media_dos_tempos_medios("escalonador_rr/resultado3.txt")
+media_rr_200_p = media_dos_tempos_medios("escalonador_rr/resultado4.txt")
+media_rr_250_p = media_dos_tempos_medios("escalonador_rr/resultado5.txt")
 
-media_aritmetica_rr = soma_rr/count
-count=0
 
 """
 Média do de Prioridades
 """
-with open("escalonador_prio/resultado.txt", "r") as file:
-	for readline in file: 
-		count+=1
-		line_strip = readline.strip()
-		soma_prio += float(line_strip)
-
-media_aritmetica_prio = soma_prio/count
-count=0
-
+media_prio_50_p = media_dos_tempos_medios("escalonador_prio/resultado1.txt")
+media_prio_100_p = media_dos_tempos_medios("escalonador_prio/resultado2.txt")
+media_prio_150_p = media_dos_tempos_medios("escalonador_prio/resultado3.txt")
+media_prio_200_p = media_dos_tempos_medios("escalonador_prio/resultado4.txt")
+media_prio_250_p = media_dos_tempos_medios("escalonador_prio/resultado5.txt")
 
 """
 Média do FIFO
 """
-with open("escalonador_fifo/resultado.txt", "r") as file:
-	for readline in file: 
-		count+=1	
-		line_strip = readline.strip()
-		soma_fifo += float(line_strip)
+media_fifo_50_p = media_dos_tempos_medios("escalonador_fifo/resultado1.txt")
+media_fifo_100_p = media_dos_tempos_medios("escalonador_fifo/resultado2.txt")
+media_fifo_150_p = media_dos_tempos_medios("escalonador_fifo/resultado3.txt")
+media_fifo_200_p = media_dos_tempos_medios("escalonador_fifo/resultado4.txt")
+media_fifo_250_p = media_dos_tempos_medios("escalonador_fifo/resultado5.txt")
 
-media_aritmetica_fifo = soma_fifo/count
-count=0
 
 """
 Média do SJF
 """
-with open("escalonador_sjf/resultado.txt", "r") as file:
-	for readline in file: 
-		count+=1	
-		line_strip = readline.strip()
-		soma_sjf += float(line_strip)
-
-media_aritmetica_sjf = soma_sjf/count
+media_sjf_50_p = media_dos_tempos_medios("escalonador_sjf/resultado1.txt")
+media_sjf_100_p = media_dos_tempos_medios("escalonador_sjf/resultado2.txt")
+media_sjf_150_p = media_dos_tempos_medios("escalonador_sjf/resultado3.txt")
+media_sjf_200_p = media_dos_tempos_medios("escalonador_sjf/resultado4.txt")
+media_sjf_250_p = media_dos_tempos_medios("escalonador_sjf/resultado5.txt")
 
 """
     Apagando o arquivo de resultado e escalonador
@@ -67,11 +57,7 @@ media_aritmetica_sjf = soma_sjf/count
 rm_files()
 
 
-"""
-Mostrando a média
-"""
-print(f"Média Escalonador RR:{media_aritmetica_rr}")
-print(f"Média Escalonador PRIO:{media_aritmetica_prio}")
-print(f"Média Escalonador FIFO:{media_aritmetica_fifo}")
-print(f"Média Escalonador SJF:{media_aritmetica_sjf}")
+# """
+# Mostrando a média
+# """
 
