@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include "escalonador-sjf.h"
+#include "escalonador_sjf.h"
 
 int n;
 
@@ -204,12 +204,15 @@ void escalona (BCP *fila1)
         /**
          * Criando a struct de processos.
          */
+        BCP *processo = NULL;
         BCP *copia, *tmpsrc, *tmp, *beforeshortest;
 
         // Vari�veis de controle para os la�os
         int tempo, inicio, fim, shortest, i;
 
         double tempo_processador;
+
+
 
         //Replicando a lista de processos. 
         tmpsrc = fila1;
@@ -244,7 +247,7 @@ void escalona (BCP *fila1)
                 if (beforeshortest == NULL) {
                         //Aloca o primeiro processo caso ele seja o menor.
                         copia=inicializa_tempo(copia);
-
+                        copia = conta_espera(copia);
                         tempo_processador = gera_tempo(copia);
 
                         for (i=0; i < (int) tempo_processador; i++);
@@ -255,6 +258,7 @@ void escalona (BCP *fila1)
                 } else {
                         //Aloca o primeiro processo caso não haja ocorrencia de outro menor
                         tmp = beforeshortest->prox;
+                        tmp = inicializa_tempo(tmp);
                         tmp=inicializa_tempo(tmp);
 
                         tempo_processador = gera_tempo(tmp);
