@@ -1,24 +1,12 @@
-import os
-
-"""
-Rodando os algoritmos de escalonamentos
-"""
-os.system("cd escalonador_prio && gcc -o escalonador escalonador.prio.c")
-os.system("cd escalonador_fifo && gcc -o escalonador escalonador.fifo.c")
-os.system("cd escalonador_rr && gcc -o escalonador escalonador.rr.c")
-os.system("cd escalonador_sjf && gcc -o escalonador escalonador.sjf.c")
+#import matplotlib.pyplot as plt
 
 
-"""
-Pegando a média dos tempos de espera para cada algoritmo
-"""
-os.system("cd escalonador_prio && ./executar.sh")
-os.system("cd escalonador_fifo && ./executar.sh")
-os.system("cd escalonador_rr && ./executar.sh")
-os.system("cd escalonador_sjf && ./executar.sh")
 
 
-soma=0
+from config import run_config, rm_files
+run_config()
+
+
 soma_rr=0
 soma_prio=0
 soma_fifo=0
@@ -74,13 +62,9 @@ with open("escalonador_sjf/resultado.txt", "r") as file:
 media_aritmetica_sjf = soma_sjf/count
 
 """
-Apagando o arquivo de resultado e escalonador
+    Apagando o arquivo de resultado e escalonador
 """
-os.system("cd escalonador_prio && rm resultado.txt && rm escalonador")
-os.system("cd escalonador_fifo && rm resultado.txt && rm escalonador")
-os.system("cd escalonador_rr && rm resultado.txt && rm escalonador")
-os.system("cd escalonador_sjf && rm resultado.txt && rm escalonador")
-
+rm_files()
 
 
 """
