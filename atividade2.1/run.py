@@ -4,7 +4,7 @@ from config import run_config, rm_files
 run_config()
 
 
-def media_dos_tempos_medios(file:str)->int:
+def media_dos_tempos_medios(file:str)->float:
     soma=0
     with open(file, "r") as file:
         for readline in file: 
@@ -14,7 +14,7 @@ def media_dos_tempos_medios(file:str)->int:
     result = soma/10
     return result
 
-def variancia_dos_tempos_medios(file:str, media:float)->int:
+def variancia_dos_tempos_medios(file:str, media:float)->float:
     soma=0
     count=0
     with open(file, "r") as file:
@@ -42,7 +42,7 @@ variancia_rr_100_p=variancia_dos_tempos_medios("escalonador_rr/resultado2.txt", 
 variancia_rr_150_p=variancia_dos_tempos_medios("escalonador_rr/resultado3.txt", media_rr_150_p)
 variancia_rr_200_p=variancia_dos_tempos_medios("escalonador_rr/resultado4.txt", media_rr_200_p)
 variancia_rr_250_p=variancia_dos_tempos_medios("escalonador_rr/resultado5.txt", media_rr_250_p)
-print(variancia_rr_100_p)
+
 
 """
 Média do de Prioridades
