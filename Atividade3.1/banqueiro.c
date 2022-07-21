@@ -181,26 +181,45 @@ int * gera_requisicao(int cliente)
 
 int requisicao(int i, int * req)
 {
+    int j, seguro;
     // verifica se req <= ne
 
     // verifica se req <= disp
-
+    for (j = 0; j < m; j++) {
+            if (req[j] > disp[j]) {
+                return 0;
+        }
+    }
     // simula a requisicao
-
+    for (j = 0; j < m; j++) {
+            disp[j] -= req[j];
+            aloc[i][j] += req[j];
+            ne[i][j] -= req[j];
+    }
+    seguro = seguranca();
     // testa se o banco esta em estado seguro
-    
+    if (seguro == 1) {
+            return 1;
+    }
         // retorna verdadeiro se a requisicao eh valida
 
     // desfaz simulacao (roll back) em caso de requisicao invalida
-
+    for (j = 0; j < m; j++) {
+            disp[j] += req[j];
+            aloc[i][j] -= req[j];
+            ne[i][j] += req[j];
         // requisicao negada
-        
+    }
     return 0;
 }
 
 int seguranca()
 {
-    int i, j;
+    int i, j, n_termina, rodadas, termina, pendente;
+
+    rodadas = n;
+
+    pendente = n;
 
     int ne_menor;
 
@@ -208,9 +227,37 @@ int seguranca()
     int * fim = malloc(n * sizeof(int));
 
     // copia disp para trab
-
+    for (i = 0; i < m; i++){
+        trab[i] = disp[i];
+    }
     // iniciando todos de fim como falso
-    
+    for (i = 0; i < n; i++){
+        fim[i] = 0;
+    }
+
+    while(rodadas > 0){
+        for (i = 0; i < n; i++) {
+            n_termina = 0;
+            if (fim[i] == 0) {
+                for (j = 0; j < m; j++){
+                    if (ne[i][j] > trab[j]){
+                        n_termina++;
+                    }
+                }
+                if (n_termina == 0){
+                    fim[i] = 1;
+                    pendente--;
+                    for (j = 0; j < m; j++){
+                    trab[j] += aloc[i][j];
+                    }
+                }
+            }
+        }
+        rodadas--;
+    }	
+    if(pendente > 0) {
+        return 0;
+    }
     // buscando algum cliente que possa acabar
 
         // se o fim eh falso
